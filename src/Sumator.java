@@ -47,13 +47,12 @@ public class Sumator implements SumatorInterface {
 
     @Override
     public void run(String file) {
+        Instant instant = Instant.now();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        LocalDateTime nowDate = LocalDateTime.now();
+
+        System.out.printf("Date: %s%n", nowDate.format(dateFormatter));
         try {
-            Instant instant = Instant.now();
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-            LocalDateTime nowDate = LocalDateTime.now();
-
-            System.out.printf("Date: %s%n", nowDate.format(dateFormatter));
-
             File inputFile = new File(file);
             Scanner scanner = new Scanner(inputFile);
             while (scanner.hasNextLine()) {
@@ -62,11 +61,9 @@ public class Sumator implements SumatorInterface {
                 String[] data = line.split(";");
                 boolean test = Sumator.sum(data[0], data[1]).equals(data[2]);
             }
-
-            System.out.printf("Date: %s, Time elapsed: %f seconds %n", nowDate.format(dateFormatter), Duration.between(instant, Instant.now()).toMillis() / 1000.0);
-
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+        System.out.printf("Date: %s, Time elapsed: %f seconds %n", nowDate.format(dateFormatter), Duration.between(instant, Instant.now()).toMillis() / 1000.0);
     }
 }
