@@ -63,7 +63,7 @@ public class Sumator implements SumatorInterface {
                 boolean test = Sumator.sum(data[0], data[1]).equals(data[2]);
             }
 
-            System.out.printf("Date: %s, Time elapsed: %d seconds %n", nowDate.format(dateFormatter), Duration.between(instant, Instant.now()).getSeconds());
+            System.out.printf("Date: %s, Time elapsed: %f seconds %n", nowDate.format(dateFormatter), Duration.between(instant, Instant.now()).toMillis() / 1000.0);
 
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
