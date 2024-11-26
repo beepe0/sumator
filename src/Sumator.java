@@ -4,6 +4,9 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Scanner;
 
 public class Sumator implements SumatorInterface {
@@ -17,12 +20,12 @@ public class Sumator implements SumatorInterface {
         boolean[] overflow = new boolean[first.length()];
 
         for (int fi = first.length() - 1, si = second.length() - 1; fi >= 0; fi --, si --) {
-            int f = Character.digit(first.charAt(fi), 10), s, tempRes;
+            int f = Character.forDigit(first.charAt(fi), 10), s, tempRes;
 
             f += (overflow[fi] ? 1 : 0);
 
             if (si >= 0) {
-                s = Character.digit(second.charAt(si), 10);
+                s = Character.forDigit(second.charAt(si), 10);
 
                 if (f + s >= 10 && fi > 0) {
                     overflow[fi - 1] = true;
@@ -51,7 +54,7 @@ public class Sumator implements SumatorInterface {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         LocalDateTime nowDate = LocalDateTime.now();
 
-        System.out.printf("Date: %s%n", nowDate.format(dateFormatter));
+        System.out.printf("Time: %s%n", nowDate.format(dateFormatter));
         try {
             File inputFile = new File(file);
             Scanner scanner = new Scanner(inputFile);
@@ -64,6 +67,7 @@ public class Sumator implements SumatorInterface {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        System.out.printf("Date: %s, Time elapsed: %f seconds %n", nowDate.format(dateFormatter), Duration.between(instant, Instant.now()).toMillis() / 1000.0);
+        nowDate = LocalDateTime.now();
+        System.out.printf("Time: %s, Time elapsed: %f seconds %n", nowDate.format(dateFormatter), Duration.between(instant, Instant.now()).toMillis() / 1000.0);
     }
 }
