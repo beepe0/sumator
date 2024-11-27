@@ -33,6 +33,6 @@ public class SumatorTest {
 
     @Test
     public void testSumator3() throws Exception {
-        new Program().run("res/targets");
+        new Sumator().run("res/targets");
     }
 }
