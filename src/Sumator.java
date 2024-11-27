@@ -4,48 +4,37 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Dictionary;
-import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Scanner;
 
 public class Sumator implements SumatorInterface {
 
-    public static String sum(String a, String b) {
-        StringBuilder res = new StringBuilder();
+    public static String sum(String first, String second) {
+        StringBuilder result = new StringBuilder();
 
-        String first = a.length() <= b.length() ? b : a;
-        String second = a.length() > b.length() ? b : a;
-
-        boolean[] overflow = new boolean[first.length()];
-
-        for (int fi = first.length() - 1, si = second.length() - 1; fi >= 0; fi --, si --) {
-            int f = Character.forDigit(first.charAt(fi), 10), s, tempRes;
-
-            f += (overflow[fi] ? 1 : 0);
-
-            if (si >= 0) {
-                s = Character.forDigit(second.charAt(si), 10);
-
-                if (f + s >= 10 && fi > 0) {
-                    overflow[fi - 1] = true;
-                    tempRes = f + s - 10;
-                } else {
-                    tempRes = f + s;
-                }
-            } else {
-                if (overflow[fi] && fi > 0 && f >= 10) {
-                    overflow[fi - 1] = true;
-                    f = 0;
-                }
-
-                tempRes = f;
-            }
-
-            res.insert(0, tempRes);
+        if (first.length() < second.length()) {
+            String t = first;
+            first = second;
+            second = t;
         }
 
-        return res.toString();
+        int fi = first.length() - 1, si = second.length() - 1, overflow = 0, r = 0;
+
+        while (fi >= 0 || overflow > 0) {
+            r = overflow;
+
+            if (fi >= 0) {
+                r += first.charAt(fi) - 48;
+            }
+            if (si >= 0) {
+                r += second.charAt(si) - 48;
+            }
+
+            overflow = r / 10;
+            result.append(r % 10);
+            fi--; si--;
+        }
+
+        return result.reverse().toString();
     }
 
     @Override
