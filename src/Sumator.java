@@ -17,21 +17,16 @@ public class Sumator implements SumatorInterface {
             second = t;
         }
 
-        int fi = first.length() - 1, si = second.length() - 1, overflow = 0, r = 0;
+        int fi = first.length() - 1, si = second.length() - 1, r = 0, overflow = 0;
 
         while (fi >= 0 || overflow > 0) {
             r = overflow;
 
-            if (fi >= 0) {
-                r += first.charAt(fi) - 48;
-            }
-            if (si >= 0) {
-                r += second.charAt(si) - 48;
-            }
+            r += fi >= 0 ? first.charAt(fi--) - 48 : 0;
+            r += si >= 0 ? second.charAt(si--) - 48 : 0;
 
             overflow = r / 10;
             result.append(r % 10);
-            fi--; si--;
         }
 
         return result.reverse().toString();
