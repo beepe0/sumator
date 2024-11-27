@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.*;
 import java.util.Random;
 
 public class SumatorTest {
@@ -31,7 +32,12 @@ public class SumatorTest {
     }
 
     @Test
-    public void testSumator3() {
+    public void testSumator3() throws Exception {
         new Sumator().run("res/targets");
+    }
+
+    @Test
+    public void testSumator4() throws IOException {
+
     }
 }

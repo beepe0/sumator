@@ -1,25 +1,17 @@
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
 
 public class Sumator implements SumatorInterface {
 
     public static String sum(String first, String second) {
         StringBuilder result = new StringBuilder();
 
-        if (first.length() < second.length()) {
-            String t = first;
-            first = second;
-            second = t;
-        }
-
         int fi = first.length() - 1, si = second.length() - 1, r = 0, overflow = 0;
 
-        while (fi >= 0 || overflow > 0) {
+        while (fi >= 0 || si >= 0 || overflow > 0) {
             r = overflow;
 
             r += fi >= 0 ? first.charAt(fi--) - 48 : 0;
@@ -33,25 +25,26 @@ public class Sumator implements SumatorInterface {
     }
 
     @Override
-    public void run(String file) {
+    public void run(String file) throws IOException {
         Instant instant = Instant.now();
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         LocalDateTime nowDate = LocalDateTime.now();
 
         System.out.printf("Time: %s%n", nowDate.format(dateFormatter));
-        try {
-            File inputFile = new File(file);
-            Scanner scanner = new Scanner(inputFile);
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
 
-                String[] data = line.split(";");
-                boolean test = Sumator.sum(data[0], data[1]).equals(data[2]);
-            }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] data = line.split(";");
+            boolean test = Sumator.sum(data[0], data[1]).equals(data[2]);
         }
+
         nowDate = LocalDateTime.now();
         System.out.printf("Time: %s, Time elapsed: %f seconds %n", nowDate.format(dateFormatter), Duration.between(instant, Instant.now()).toMillis() / 1000.0);
+    }
+
+    @Override
+    public void run() {
+
     }
 }

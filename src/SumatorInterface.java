@@ -1,3 +1,3 @@
-public interface SumatorInterface {
-    public void run(String file);
+public interface SumatorInterface extends Runnable{
+    public void run(String file) throws Exception;
 }
