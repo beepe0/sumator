@@ -42,9 +42,4 @@ public class Sumator implements SumatorInterface {
         nowDate = LocalDateTime.now();
         System.out.printf("Time: %s, Time elapsed: %f seconds %n", nowDate.format(dateFormatter), Duration.between(instant, Instant.now()).toMillis() / 1000.0);
     }
-
-    @Override
-    public void run() {
-
-    }
 }
