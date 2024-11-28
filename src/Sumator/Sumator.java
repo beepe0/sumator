@@ -40,8 +40,6 @@ public class Sumator implements SumatorInterface {
         sharedReader = new SharedReader(file);
         threads = new Thread[maxThreads];
 
-        maxThreads = Runtime.getRuntime().availableProcessors();
-
         for (int i = 0; i < maxThreads; i ++) {
             threads[i] = new ReaderFileTask(sharedReader);
         }
