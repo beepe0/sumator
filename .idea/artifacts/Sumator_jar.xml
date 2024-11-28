@@ -2,6 +2,9 @@
   <artifact type="jar" name="Sumator:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/Sumator_jar</output-path>
     <root id="archive" name="Sumator.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      </element>
       <element id="module-output" name="Sumator" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter/5.11.3/junit-jupiter-5.11.3.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-api/5.11.3/junit-jupiter-api-5.11.3.jar" path-in-jar="/" />
